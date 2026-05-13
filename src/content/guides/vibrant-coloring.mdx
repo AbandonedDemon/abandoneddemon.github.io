@@ -88,6 +88,7 @@ import Why from '../../components/Why.astro';
 import Mistakes from '../../components/Mistakes.astro';
 import Shot from '../../components/Shot.astro';
 import StepsList from '../../components/StepsList.astro';
+import SubPass from '../../components/SubPass.astro';
 import step1 from '../../assets/guides/vibrant-coloring/steps/01.jpg';
 import step2 from '../../assets/guides/vibrant-coloring/steps/02.jpg';
 import step3 from '../../assets/guides/vibrant-coloring/steps/03.jpg';
@@ -132,7 +133,7 @@ import step16 from '../../assets/guides/vibrant-coloring/steps/16.jpg';
   <StepsList>
     <li><strong>Levels for the anchors.</strong> Layer → New Adjustment Layer → <code>Levels</code>. Drag the black slider in until the histogram starts. Drag the white slider in until the histogram ends. You're snapping the tonal range to its actual edges.</li>
     <li><strong>Curves for contrast shape.</strong> Layer → New Adjustment Layer → <code>Curves</code>. Master RGB channel only. Apply a subtle <em>S-curve</em>: click once in the middle of the diagonal to drop an anchor, then drag the lower portion <em>down</em> a touch and the upper portion <em>up</em> a touch. Don't go heavy — you'll add more in Pass 03. <em>Optional refinement:</em> set the Curves layer's blend mode to <code>Luminosity</code> so the contrast move doesn't quietly pump saturation as a side effect. Skip the Luminosity move if you actually want that punch — decide deliberately, not by accident.</li>
-    <li><strong>Sanity check.</strong> Hold <kbd>Alt</kbd>/<kbd>Option</kbd> and click the bottom layer's eyeball to A/B against the source. Image should feel <em>cleaner</em>, not <em>different</em>. If it already looks "graded," you went too far — back off.</li>
+    <li><strong>Sanity check.</strong> Hold <kbd>Alt</kbd>/<kbd>Option</kbd> and click the eyeball icon next to your source image layer (bottom-most in the Layers panel) — this temporarily hides all the adjustment layers above it, letting you A/B against the original. Image should feel <em>cleaner</em>, not <em>different</em>. If it already looks "graded," you went too far — back off.</li>
   </StepsList>
 
   <Shot src={step3} alt="Levels dialog with the histogram and black/white sliders pulled to the edges of the data" />
@@ -149,25 +150,66 @@ import step16 from '../../assets/guides/vibrant-coloring/steps/16.jpg';
 <GuideStep id="pass-3" num="03" kicker="The Color Pass · ~25 min · The meat" title="Where the look gets built.">
   <Goal>Build the color story through four stacked tools — Curves channels for structure, Selective Color for surgical hue shifts, Hue/Saturation for protection, Solid Color wash as a final unifier — without any single move doing all the work.</Goal>
 
-  <StepsList>
-    <li><strong>Curves channels — the split-tone skeleton.</strong> Layer → New Adjustment Layer → <code>Curves</code>. <strong>Blue channel:</strong> bottom-left up = teal shadows; top-right down = warm highlights. <strong>Red channel:</strong> bottom-left up = magenta shadows; top-right down = cyan highlights. <strong>Green channel:</strong> sparingly — top-right down = magenta highlights for sunset moods. Keep each move <code>5–15 points</code>; the eye exaggerates color shifts. Default <code>Normal</code> blend mode is correct here — Luminosity would strip exactly the change you're making.</li>
-    <li><strong>Selective Color — surgical hue zones.</strong> Layer → New Adjustment Layer → <code>Selective Color</code>. <strong>Cyans:</strong> <code>+Cyan, −Yellow</code> pushes toward true teal. <strong>Reds:</strong> <code>+Magenta</code> shifts reds toward coral (the dreamy lean). <strong>Whites:</strong> <code>−Yellow, +Magenta</code> tints whites cool/lavender. <strong>Blacks:</strong> <code>+Cyan, +Black</code> for deeper, cooler shadows. Start in <code>Relative</code> mode; switch to <code>Absolute</code> only if a zone refuses to budge.</li>
-    <li><strong>Hue/Saturation — the protection pass.</strong> New adjustment layer → <code>Hue/Saturation</code>. Target the <strong>Reds</strong> and <strong>Yellows</strong> ranges from the dropdown; pull saturation <code>−10 to −20</code> to protect skin from the over-pushed reds in step 1. Optionally <em>boost</em> the <strong>Cyans</strong> range to push the cyan-skin contrast harder. <em>Vibrance vs Hue/Sat:</em> reach for <strong>Vibrance</strong> when you want a global lift (it protects skin automatically); reach for <strong>Hue/Saturation with a specific range</strong> when you want a scalpel. Master saturation in Hue/Saturation is rarely the right tool.</li>
-    <li><strong>Solid Color wash — the final unifier (optional).</strong> Layer → New Fill Layer → <code>Solid Color</code>. Set blend mode to <code>Color</code> at 5–15% opacity, or <code>Soft Light</code> at 10–20% for a gentle warming/cooling. Use as a stitch when everything looks right but the image feels visually disconnected.</li>
-  </StepsList>
+  <SubPass num="3.1" titleHtml="Curves channels — <em>the split-tone skeleton</em>">
+    <p>Layer → New Adjustment Layer → <code>Curves</code>. The structural backbone of every color grade. Each channel curve doesn't control brightness — it controls <strong>how much of one specific color lives in each tonal zone</strong>. Once this clicks, most grades become obvious.</p>
+    <p><strong>The three channels each push along one color axis:</strong></p>
+    <ul>
+      <li><strong>Red curve</strong> — pushes between <em>Red ↔ Cyan</em></li>
+      <li><strong>Green curve</strong> — pushes between <em>Green ↔ Magenta</em></li>
+      <li><strong>Blue curve</strong> — pushes between <em>Blue ↔ Yellow</em></li>
+    </ul>
+    <p><strong>Reading any curve:</strong> bottom-left = shadows, middle = midtones, top-right = highlights. <em>Lifting</em> a point adds more of that channel's color in that zone; <em>dropping</em> a point shifts that zone toward the channel's opposite. So dropping the top-right of the Blue curve gives you warm (yellow) highlights. Lifting the bottom-left of the Red curve gives you red shadows. <strong>Pair moves across channels to build split-tones</strong> — warm one tonal end, cool the other.</p>
+    <p>Keep moves small — <code>5–15 points</code>. The eye exaggerates color shifts faster than you'd expect, and it's easier to add than subtract.</p>
+    <p><em>What the Lynae case study shows:</em> its magenta-shadow / cyan-highlight signature is mostly Red channel curve work, pushed slightly harder than usual — bottom-left lifted for the magenta shadows, top-right dropped for the cyan highlights. One channel doing most of the lifting.</p>
+    <p><em>One note tying back to Pass 02:</em> this is one of the rare times you do <strong>not</strong> want Luminosity blend mode on your Curves layer. The whole point here is to shift color — Luminosity would strip exactly the change you're making. Default <code>Normal</code> blend mode is correct. (Advanced: <code>Color</code> blend mode locks <em>only</em> the color shift with no contrast bleed — useful when stacking many channel curves.)</p>
+    <Shot src={step5} alt="Curves panel with a single channel curve adjusted — endpoints shifted to push that channel's color axis" />
+    <Shot src={step6} alt="Curves panel with a second channel curve now active, showing the paired-channel split-tone setup" />
+  </SubPass>
 
-  <Shot src={step5} alt="Curves panel with the Blue channel selected, showing teal shadow lift and warm highlight pull" />
-  <Shot src={step6} alt="Curves panel with the Red channel selected; both Blue and Red moves applied in one Curves layer" />
-  <Shot src={step7} alt="Selective Color panel with the Whites range selected, sliders cooling toward lavender" />
-  <Shot src={step8} alt="Selective Color panel with the Reds range selected, +Magenta pushed toward coral" />
-  <Shot src={step9} alt="Hue/Saturation panel with the Reds range targeted via eyedropper, saturation pulled down to protect skin" />
-  <Shot src={step10} alt="Solid Color fill layer at the top of the stack with low opacity, blend mode Color" />
+  <SubPass num="3.2" titleHtml="Selective Color — <em>surgical hue zones</em>">
+    <p>Layer → New Adjustment Layer → <code>Selective Color</code>. The cleanest tool for adjusting one specific hue zone without affecting the others. Where Curves channels paint with a roller, Selective Color paints with a brush.</p>
+    <p><strong>How it works:</strong></p>
+    <ul>
+      <li>The <strong>Colors dropdown</strong> picks which family you're adjusting — <em>Reds, Yellows, Greens, Cyans, Blues, Magentas</em> for hue ranges, plus <em>Whites, Neutrals, Blacks</em> which target tonal zones rather than hues.</li>
+      <li>The <strong>four sliders</strong> (Cyan, Magenta, Yellow, Black) shift the selected family toward or away from those colors. <code>+Cyan</code> on a Red range = less red. <code>+Magenta</code> on a Red range = more pink. Same logic for every family.</li>
+      <li><strong>Whites, Neutrals, Blacks</strong> are the most underused options. They let you tint a tonal zone (your white shirt, your shadow areas) without touching the saturated colors elsewhere in the image.</li>
+    </ul>
+    <p><strong>Mode toggle:</strong> <code>Relative</code> for subtle, proportional shifts (start here). <code>Absolute</code> for stronger, more obvious shifts (switch when a zone won't budge).</p>
+    <p><strong>A few representative moves</strong> to show the logic — adapt the specifics to whatever target palette you committed to in Pass 01:</p>
+    <ul>
+      <li>Push reds toward orange — select Reds, <code>+Yellow</code></li>
+      <li>Push reds toward pink — select Reds, <code>+Magenta</code></li>
+      <li>Desaturate reds without shifting their hue — select Reds, <code>+Cyan</code> (red's opposite)</li>
+      <li>Tint a white shirt cool — select Whites, <code>−Yellow</code> with a touch of <code>+Cyan</code></li>
+      <li>Tint shadows warm — select Blacks, <code>−Cyan, +Yellow</code></li>
+    </ul>
+    <p>Once "each slider pushes toward or away from one color" clicks, you can construct any move you need.</p>
+    <Shot src={step7} alt="Selective Color panel with one Colors range selected, the four sliders shifted to push it toward an adjacent hue" />
+    <Shot src={step8} alt="Selective Color panel with a different Colors range selected, showing the same slider logic applied to another family" />
+  </SubPass>
+
+  <SubPass num="3.3" titleHtml="Hue/Saturation — <em>the protection pass</em>">
+    <p>New adjustment layer → <code>Hue/Saturation</code>. The protective pass, mostly. After the color decisions in 3.1 and 3.2, certain zones will end up too punchy or shifted out of place — most commonly, skin tones get dragged into the dominant palette and stop reading as skin. Hue/Sat with the eyedropper is your scalpel for fixing that.</p>
+    <p><strong>Vibrance vs Hue/Sat — the critical distinction:</strong></p>
+    <ul>
+      <li><strong>Vibrance</strong> — the smart global slider. Protects skin tones automatically; boosts undersaturated colors more than already-saturated ones. Reach for it when you want overall punch.</li>
+      <li><strong>Hue/Sat with a specific range</strong> — surgical. Reach for it when you want targeted control. The <em>master</em> Saturation slider on Hue/Sat is rarely the right tool; the <em>range dropdown</em> is where the precision lives.</li>
+    </ul>
+    <p><strong>Workflow:</strong> Add a Hue/Saturation adjustment layer → pick the range that's misbehaving from the dropdown (Reds, Yellows, etc.), <em>or</em> use the eyedropper to click directly on the offending color in the image, which sets the range automatically → pull Saturation down to taste (<code>−10 to −30</code> is typical for skin protection; further if a color is really screaming) → optionally nudge Hue <code>±5</code> to fine-tune the actual color of that range.</p>
+    <p>The <strong>eyedropper plus the range bar at the bottom of the panel</strong> are the underused features. The range bar lets you widen or narrow exactly which hues your adjustment affects — drag the inner stops to set the targeted range, drag the outer stops to set the falloff.</p>
+    <Shot src={step9} alt="Hue/Saturation panel with the eyedropper engaged and the bottom range bar visible, showing inner/outer falloff stops" />
+  </SubPass>
+
+  <SubPass num="3.4" titleHtml="Bonus — <em>Solid Color wash</em>">
+    <p>Layer → New Fill Layer → <code>Solid Color</code>. Set blend mode to <code>Color</code> at 5–15% opacity, or <code>Soft Light</code> at 10–20% for a gentle warming/cooling. Use as a stitch when everything looks right but the image feels visually disconnected.</p>
+    <Shot src={step10} alt="Solid Color fill layer at the top of the stack with low opacity, blend mode Color" />
+  </SubPass>
 
   <Why><strong>Color builds in passes.</strong> Curves channels paint with a roller; Selective Color paints with a brush; Hue/Sat protects what shouldn't move. Stacked, they read as a grade. One global slam — even a "vibrant action" preset — reads as a filter. The principle that runs through all four sub-passes: <strong>vibrant ≠ saturated.</strong></Why>
 
   <Mistakes items={[
-    { symptomHtml: "Magenta cast on everything", fixHtml: "<strong>Red channel pushed too hard with no Hue/Sat protection.</strong> Pull back the Curves move or add a stronger Hue/Sat reds layer at <code>−15 to −25</code>." },
-    { symptomHtml: "Crushed teal blacks — detail dropping out of shadow zones; skin in low light goes corpse-blue", fixHtml: "<strong>Blue channel bottom-left lifted past 20 points.</strong> Back off the lift. Aim for milky shadows, not blue ones." },
+    { symptomHtml: "Whole-image color cast — skin, whites, shadows all tinted the same dominant hue", fixHtml: "<strong>One channel curve pushed too hard with no Hue/Sat protection on neutrals.</strong> Pull back the dominant Curves move or add a stronger Hue/Sat protection layer on the affected ranges." },
+    { symptomHtml: "Crushed shadow detail — detail drops out of dark zones; skin in low light takes on the lifted hue (corpse-blue, sickly green, etc.)", fixHtml: "<strong>Channel curve bottom-left lifted past 20+ points (or master Curves shadow lifted hard).</strong> Back off the lift." },
     { symptomHtml: "\"Instagram filter\" look", fixHtml: "<strong>One strong global shift instead of layered passes.</strong> Diagnostic: if toggling off any single layer kills the whole grade, you're relying on one big move. Spread it across 3–4 smaller layers." },
     { symptomHtml: "Reaching for master saturation when Vibrance was the right tool", fixHtml: "<strong>Master saturation in Hue/Saturation is rarely correct.</strong> Global punch → Vibrance. Targeted punch → Hue/Sat with a specific range. Never the master." }
   ]} />
@@ -177,10 +219,10 @@ import step16 from '../../assets/guides/vibrant-coloring/steps/16.jpg';
   <Goal>Add directional color light cues — rim, bloom, leaks — that make the palette feel emitted from the scene rather than overlaid on it.</Goal>
 
   <StepsList>
-    <li><strong>Rim lighting, matched to background.</strong> New layer above the subject, blend mode <code>Screen</code> or <code>Linear Dodge</code>. Soft brush in the dominant background color. Paint along the subject's edge facing that color source. Then a second rim from the opposite side in the complementary color.</li>
-    <li><strong>Bloom on highlights.</strong> Stamp visible (<kbd>Ctrl/Cmd + Shift + Alt + E</kbd>) → Filter → Blur → <code>Gaussian Blur 30–50px</code> → set blend to <code>Screen</code> at 30–50% opacity. <em>Stamp visible just makes a single flattened copy of everything you see, on a new layer above — your originals stay untouched.</em> The image's brightest points now glow.</li>
-    <li><strong>Light leaks (optional).</strong> Drop a colored gradient layer or a leak overlay PNG, set to <code>Screen</code> at 50–70%. One warm leak in a corner is usually plenty.</li>
-    <li><strong>Sparkle accents.</strong> Tiny soft brush dots on a Screen layer, in the highlight color. Restraint — 4–8 across the whole image, not 50.</li>
+    <li><strong>Rim lighting, matched to background.</strong> New layer above subject, blend mode <code>Screen</code> or <code>Linear Dodge</code>. Soft brush in whichever color sits <em>behind</em> that edge of the subject. Paint a thin line along the subject's edge facing that color source. If different colors sit behind different sides of the subject, repeat with a second (or third) rim on each respective side. The rule isn't "use complementary colors" — it's <em>"match what's actually back there"</em>. Whatever the environment is doing, the rim should echo.</li>
+    <li><strong>Bloom on highlights.</strong> Stamp visible (<kbd>Ctrl/Cmd + Shift + Alt + E</kbd>) → Filter → Blur → <code>Gaussian Blur 30–50px</code> → set blend to <code>Lighten</code> or <code>Screen</code> at 20–40% opacity. <em>Stamp visible just makes a single flattened copy of everything you see, on a new layer above — your originals stay untouched.</em> The image's brightest points now glow.</li>
+    <li><strong>Light leaks (optional).</strong> Drop a colored gradient layer or a leak overlay PNG, set to <code>Screen</code> at 40–70%. <em>Pick a color that already exists in your palette</em> — leaks that introduce a new hue read as "filter," leaks that amplify an existing one read as "light." Position matters too: leaks at corners and edges feel diegetic; leaks across the subject's face feel imposed.</li>
+    <li><strong>Sparkle &amp; accent particles (optional).</strong> Tiny soft brush dots on a Screen layer, in a light color from your palette. The principle is restraint — a handful of placed accents reads as intentional; a dense field of them reads as overlay. Exact density is style-dependent. Place them where the eye should travel, not uniformly.</li>
   </StepsList>
 
   <Shot src={step11} alt="Two rim-light layers, one each side of the subject, blend mode Screen, in complementary colors" />

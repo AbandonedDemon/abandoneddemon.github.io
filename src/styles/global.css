@@ -498,7 +498,7 @@
     counter-reset: stepcount;
     margin-bottom: 36px;
   }
-  ol.steps-list li {
+  ol.steps-list > li {
     counter-increment: stepcount;
     padding: 14px 0 14px 52px;
     border-bottom: 1px solid var(--rule);
@@ -507,8 +507,8 @@
     line-height: 1.6;
     color: var(--ink);
   }
-  ol.steps-list li:last-child { border-bottom: 0; }
-  ol.steps-list li::before {
+  ol.steps-list > li:last-child { border-bottom: 0; }
+  ol.steps-list > li::before {
     content: counter(stepcount, decimal-leading-zero);
     position: absolute;
     left: 0;
@@ -543,6 +543,65 @@
     color: var(--ink);
     border-radius: 2px;
     margin: 0 1px;
+  }
+
+  /* Sub-pass blocks (used inside Pass 03) */
+  .subpass {
+    padding: 28px 0;
+    border-top: 1px solid var(--rule);
+  }
+  .subpass:first-of-type { border-top: 1px solid var(--ink-faint); }
+  .subpass-head {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+  .subpass-num {
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--rose);
+    letter-spacing: 0.14em;
+    flex-shrink: 0;
+  }
+  .subpass-title {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .subpass-title em { font-style: italic; color: var(--ink-dim); font-weight: 300; }
+  .subpass-body { font-size: 15px; color: var(--ink-dim); line-height: 1.6; }
+  .subpass-body p { margin-bottom: 14px; }
+  .subpass-body p:last-child { margin-bottom: 0; }
+  .subpass-body strong { color: var(--ink); font-weight: 500; }
+  .subpass-body code {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--teal);
+    background: var(--bg-2);
+    padding: 1px 6px;
+    border: 1px solid var(--rule);
+  }
+  .subpass-body ul {
+    list-style: none;
+    margin: 14px 0;
+    padding: 0;
+  }
+  .subpass-body ul li {
+    padding: 8px 0 8px 22px;
+    position: relative;
+    border-bottom: 1px dashed var(--rule);
+    font-size: 14px;
+  }
+  .subpass-body ul li:last-child { border-bottom: none; }
+  .subpass-body ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--teal);
+    font-family: var(--mono);
   }
 
   /* Screenshot placeholder + drop zone */

@@ -1,0 +1,18 @@
+---
+interface Props {
+  num: string;
+  titleHtml: string;
+}
+
+const { num, titleHtml } = Astro.props;
+---
+
+<div class="subpass">
+  <div class="subpass-head">
+    <div class="subpass-num">{num}</div>
+    <div class="subpass-title" set:html={titleHtml} />
+  </div>
+  <div class="subpass-body">
+    <slot />
+  </div>
+</div>
