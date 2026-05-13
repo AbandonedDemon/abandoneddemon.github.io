@@ -6,6 +6,7 @@ import PrincipleGrid from '../components/PrincipleGrid.astro';
 import Glossary from '../components/Glossary.astro';
 import BeforeAfterSlider from '../components/BeforeAfterSlider.astro';
 import StickyToc from '../components/StickyToc.astro';
+import Lightbox from '../components/Lightbox.astro';
 
 interface Props {
   guide: CollectionEntry<'guides'>;
@@ -91,6 +92,7 @@ const catalogHref = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
       <span>End of file</span>
     </footer>
   </div>
+  <Lightbox />
 </BaseLayout>
 
 <style>

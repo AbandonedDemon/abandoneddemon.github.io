@@ -11,5 +11,30 @@ const { src, alt } = Astro.props;
 ---
 
 <div class="shot filled">
-  <Image src={src} alt={alt} loading="lazy" decoding="async" />
+  <button type="button" class="shot-trigger" aria-label={`View larger: ${alt}`}>
+    <Image src={src} alt={alt} loading="lazy" decoding="async" />
+  </button>
 </div>
+
+<style>
+  .shot-trigger {
+    display: block;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    cursor: zoom-in;
+    font: inherit;
+    color: inherit;
+  }
+  .shot-trigger:focus-visible {
+    outline: 2px solid var(--amber);
+    outline-offset: 2px;
+  }
+  .shot-trigger img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+</style>
