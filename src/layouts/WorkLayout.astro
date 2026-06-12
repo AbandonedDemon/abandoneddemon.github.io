@@ -4,19 +4,19 @@ import BaseLayout from './BaseLayout.astro';
 import Lightbox from '../components/Lightbox.astro';
 
 interface Props {
-  entry: CollectionEntry<'work'>;
+  entry: CollectionEntry<'works'>;
 }
 
 const { entry } = Astro.props;
 const data = entry.data;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
-const workHref = `${base}/work`;
+const worksHref = `${base}/works`;
 ---
 
-<BaseLayout title={`${data.title} · Work`} description={data.tagline}>
+<BaseLayout title={`${data.title} · Works`} description={data.tagline}>
   <div class="wrap">
-    <a class="back-link" href={workHref}>← All work</a>
+    <a class="back-link" href={worksHref}>← All works</a>
 
     <header class="work-hero">
       <div class="work-theme">{data.theme}</div>
@@ -38,7 +38,7 @@ const workHref = `${base}/work`;
     </article>
 
     <footer>
-      <span>Work · {data.title}</span>
+      <span>Works · {data.title}</span>
       <span>End of file</span>
     </footer>
   </div>

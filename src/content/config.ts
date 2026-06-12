@@ -63,8 +63,8 @@ const guides = defineCollection({
     }),
 });
 
-const work = defineCollection({
-  loader: glob({ pattern: '**/*.mdx', base: './src/content/work' }),
+const works = defineCollection({
+  loader: glob({ pattern: '**/*.mdx', base: './src/content/works' }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -77,4 +77,4 @@ const work = defineCollection({
     }),
 });
 
-export const collections = { guides, work };
+export const collections = { guides, works };

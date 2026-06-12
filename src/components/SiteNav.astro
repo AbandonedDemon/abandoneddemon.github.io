@@ -4,7 +4,7 @@ const home = `${base}/`;
 
 const path = Astro.url.pathname;
 const isAbout = path.includes('/about');
-const isWork = path.includes('/work');
+const isWork = path.includes('/works');
 const isGuides = path.includes('/gfx-guides');
 ---
 
@@ -13,7 +13,7 @@ const isGuides = path.includes('/gfx-guides');
     <a class="brand" href={home}>abdemon</a>
     <div class="nav-links">
       <a href={`${base}/about`} class:list={['nav-link', { active: isAbout }]}>About</a>
-      <a href={`${base}/work`} class:list={['nav-link', { active: isWork }]}>Work</a>
+      <a href={`${base}/works`} class:list={['nav-link', { active: isWork }]}>Works</a>
       <a href={`${base}/gfx-guides`} class:list={['nav-link', { active: isGuides }]}>GFX Guides</a>
     </div>
   </div>
