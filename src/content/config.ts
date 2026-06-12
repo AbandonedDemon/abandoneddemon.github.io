@@ -68,9 +68,11 @@ const work = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
-      cover: image(),
-      coverAlt: z.string(),
-      summary: z.string(),
+      theme: z.string(),
+      tagline: z.string(),
+      stack: z.array(z.string()).default([]),
+      cover: image().optional(),
+      coverAlt: z.string().optional(),
       publishedAt: z.coerce.date(),
     }),
 });

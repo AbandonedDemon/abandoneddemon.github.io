@@ -17,8 +17,8 @@ const data = guide.data;
 const steps = data.steps;
 const description = data.lede[0];
 
-const baseUrl = import.meta.env.BASE_URL;
-const catalogHref = baseUrl.endsWith('/') ? baseUrl : `${baseUrl}/`;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const catalogHref = `${base}/gfx-guides`;
 ---
 
 <BaseLayout title={data.titleHtml.replace(/<[^>]+>/g, '')} description={description}>

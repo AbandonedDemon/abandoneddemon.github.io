@@ -1,0 +1,67 @@
+---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const home = `${base}/`;
+
+const path = Astro.url.pathname;
+const isAbout = path.includes('/about');
+const isWork = path.includes('/work');
+const isGuides = path.includes('/gfx-guides');
+---
+
+<nav class="site-nav">
+  <div class="site-nav-inner">
+    <a class="brand" href={home}>abdemon</a>
+    <div class="nav-links">
+      <a href={`${base}/about`} class:list={['nav-link', { active: isAbout }]}>About</a>
+      <a href={`${base}/work`} class:list={['nav-link', { active: isWork }]}>Work</a>
+      <a href={`${base}/gfx-guides`} class:list={['nav-link', { active: isGuides }]}>GFX Guides</a>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .site-nav {
+    border-bottom: 1px solid var(--rule);
+    background: var(--bg);
+  }
+  .site-nav-inner {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 0 28px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .brand {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    color: var(--teal);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+  .brand:hover {
+    color: var(--ink);
+  }
+  .nav-links {
+    display: flex;
+    gap: 22px;
+  }
+  .nav-link {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-dim);
+    text-decoration: none;
+    transition: color 0.18s ease;
+  }
+  .nav-link:hover {
+    color: var(--ink);
+  }
+  .nav-link.active {
+    color: var(--ink);
+  }
+</style>

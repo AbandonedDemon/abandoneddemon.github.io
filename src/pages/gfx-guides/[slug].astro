@@ -1,6 +1,6 @@
 ---
 import { getCollection, render, type CollectionEntry } from 'astro:content';
-import GuideLayout from '../layouts/GuideLayout.astro';
+import GuideLayout from '../../layouts/GuideLayout.astro';
 
 export async function getStaticPaths() {
   const guides = await getCollection('guides');
