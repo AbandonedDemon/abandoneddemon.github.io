@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import { getImage } from 'astro:assets';
 import BaseLayout from './BaseLayout.astro';
 import GuideHero from '../components/GuideHero.astro';
 import PrincipleGrid from '../components/PrincipleGrid.astro';
@@ -15,13 +16,25 @@ interface Props {
 const { guide } = Astro.props;
 const data = guide.data;
 const steps = data.steps;
-const description = data.lede[0];
+const plainText = (value: string) =>
+  value.replace(/<br\s*\/?\s*>/gi, ' ').replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim();
+const title = plainText(data.titleHtml);
+const description = plainText(data.lede[0]);
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const socialImage = await getImage({ src: data.caseStudy.after, width: 1200, format: 'webp' });
+const socialImageUrl = new URL(socialImage.src, Astro.site).href;
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const catalogHref = `${base}/gfx-guides`;
 ---
 
-<BaseLayout title={data.titleHtml.replace(/<[^>]+>/g, '')} description={description}>
+<BaseLayout
+  title={title}
+  description={description}
+  canonicalUrl={canonicalUrl}
+  socialImageUrl={socialImageUrl}
+  socialImageAlt={data.caseStudy.afterAlt}
+>
   <div class="wrap">
     <a class="back-link" href={catalogHref}>← All guides</a>
     <GuideHero
